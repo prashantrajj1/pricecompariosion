@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCompare | Product Specifications & Live Prices</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="details.css">
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- HEADER -->
+  <header class="glass">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link" id="logo-btn">
+        <div class="logo-icon">C</div>
+        <span class="logo-text">SmartCompare</span>
+      </a>
+
+      <!-- Search Container (redirects to home with query) -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input type="text" id="search-input" class="search-input" placeholder="Search for smartphones..." autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Theme Toggle -->
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" title="Toggle Light/Dark Mode" aria-label="Toggle Theme">
+          <svg id="theme-icon-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+          <svg id="theme-icon-light" style="display:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707-.707m12.728 0l-.707.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container details-container">
+    <!-- Back breadcrumb navigation -->
+    <div class="back-navigation">
+      <a href="index.html" class="back-link">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Search Results
+      </a>
+    </div>
+
+    <!-- Product Details Main Block -->
+    <div id="details-root">
+      <!-- Dynamically Rendered by details.js -->
+      <div class="details-loading">
+        <div class="spinner-circle" style="width:50px; height:50px; margin: 0 auto 16px auto;"></div>
+        <p>Loading smartphone specifications...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- REDIRECTION PORTAL MODAL -->
+  <div id="redirect-modal" class="modal-overlay">
+    <div class="modal-content glass redirect-portal">
+      <div class="spinner-wrapper">
+        <div class="spinner-circle"></div>
+        <div class="spinner-icon" id="redirect-store-logo">S</div>
+      </div>
+      <h3 class="redirect-title">Connecting to Store</h3>
+      <p class="redirect-subtitle" id="redirect-details">Preparing to redirect you to Amazon...</p>
+      
+      <div class="redirect-steps">
+        <div class="redirect-step" id="step-1">
+          <div class="step-icon">
+            <svg style="display:none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span>Verifying secure connection...</span>
+        </div>
+        <div class="redirect-step" id="step-2">
+          <div class="step-icon">
+            <svg style="display:none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span>Fetching real-time stock...</span>
+        </div>
+        <div class="redirect-step" id="step-3">
+          <div class="step-icon">
+            <svg style="display:none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span>Applying discount codes...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="margin-top: 60px; padding: 48px 0; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 14px;">
+    <div class="container">
+      <p>&copy; 2026 SmartCompare Hub. Developed as a premium product search and price comparison tool.</p>
+    </div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="reviews_data.js"></script>
+  <script src="details.js"></script>
+</body>
+</html>

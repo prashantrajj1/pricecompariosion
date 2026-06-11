@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCompare | Real-Time Price Comparison Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- HEADER -->
+  <header class="glass">
+    <div class="container header-inner">
+      <a href="#" class="logo-link" id="logo-btn">
+        <div class="logo-icon">C</div>
+        <span class="logo-text">SmartCompare</span>
+      </a>
+
+      <!-- Search Container -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input type="text" id="search-input" class="search-input" placeholder="Search for phones, laptops, audio..." autocomplete="off">
+        </div>
+        <!-- Autocomplete Dropdown -->
+        <div id="autocomplete-dropdown" class="autocomplete-dropdown glass"></div>
+      </div>
+
+      <!-- Navigation & Action Buttons -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" title="Toggle Light/Dark Mode" aria-label="Toggle Theme">
+          <svg id="theme-icon-dark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+          <svg id="theme-icon-light" style="display:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707-.707m12.728 0l-.707.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+          </svg>
+        </button>
+        <!-- Mobile Filter Show -->
+        <button id="mobile-filter-toggle" class="icon-btn" title="Show Filters" aria-label="Toggle Filters" style="display: none;">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO SECTION - TOP RATED MOBILES -->
+    <section class="hero-section">
+      <div class="hero-header-block">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+          <div class="hero-badge-icon">★</div>
+          <h2 class="hero-section-title">Top Rated Smartphones</h2>
+        </div>
+        <p class="hero-section-subtitle">Based on real user reviews and prices compared across Indian e-commerce sites</p>
+      </div>
+      <div class="hero-products-grid" id="hero-products-grid">
+        <!-- Dynamically populated via app.js -->
+      </div>
+    </section>
+
+    <div class="main-layout">
+      
+      <!-- FILTERS SIDEBAR -->
+      <aside id="filters-sidebar" class="filters-sidebar">
+        <div class="filter-card glass">
+          <div class="filter-title">
+            <span>Filters</span>
+            <button id="filter-reset" class="filter-reset-btn">Reset All</button>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">Price Range</div>
+            <div class="price-inputs">
+              <div class="price-box">
+                <span>Min</span>
+                <input type="number" id="price-min-input" value="0">
+              </div>
+              <div class="price-box">
+                <span>Max</span>
+                <input type="number" id="price-max-input" value="160000">
+              </div>
+            </div>
+            <!-- Slider -->
+            <div class="price-range-wrapper">
+              <input type="range" id="price-slider" class="custom-slider" min="0" max="160000" step="5000" value="160000">
+            </div>
+          </div>
+
+          <!-- Brands Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">Brand</div>
+            <div class="checkbox-list" id="brand-filter-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Store Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">Stores</div>
+            <div class="checkbox-list" id="store-filter-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-group">
+            <div class="filter-group-title">Minimum Rating</div>
+            <div class="checkbox-list" id="rating-filter-list">
+              <label class="checkbox-label">
+                <input type="radio" name="rating-filter" value="0" checked>
+                <div class="checkbox-custom" style="border-radius: 50%;"></div>
+                <span>All Ratings</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="rating-filter" value="4.8">
+                <div class="checkbox-custom" style="border-radius: 50%;"></div>
+                <span>4.8 ★ &amp; above</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="radio" name="rating-filter" value="4.6">
+                <div class="checkbox-custom" style="border-radius: 50%;"></div>
+                <span>4.6 ★ &amp; above</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CONTENT AREA -->
+      <section class="content-area">
+        <!-- Toolbar -->
+        <div class="grid-toolbar glass">
+          <div class="result-count">
+            Showing <strong id="visible-count">0</strong> products
+          </div>
+          <div class="toolbar-controls">
+            <div class="sort-select-wrapper">
+              <span>Sort by:</span>
+              <select id="sort-select" class="sort-select">
+                <option value="popular">Popularity</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Rating</option>
+              </select>
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="products-grid" class="products-grid">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- COMPARE DECK (Floating bottom bar) -->
+  <div id="compare-deck" class="compare-deck glass">
+    <div class="compare-deck-items" id="compare-deck-items">
+      <!-- Added compare items will go here -->
+    </div>
+    <div class="compare-actions">
+      <button id="compare-now-btn" class="btn-primary">Compare Now</button>
+    </div>
+  </div>
+
+  <!-- COMPARISON MODAL -->
+  <div id="compare-modal" class="modal-overlay">
+    <div class="modal-content glass compare-modal-content">
+      <button class="modal-close-btn" id="compare-modal-close" aria-label="Close Comparison">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <h2 class="logo-text">Compare Products</h2>
+      <div id="compare-grid" class="compare-grid">
+        <!-- Render compare results here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- REDIRECTION PORTAL MODAL -->
+  <div id="redirect-modal" class="modal-overlay">
+    <div class="modal-content glass redirect-portal">
+      <div class="spinner-wrapper">
+        <div class="spinner-circle"></div>
+        <div class="spinner-icon" id="redirect-store-logo">S</div>
+      </div>
+      <h3 class="redirect-title">Connecting to Store</h3>
+      <p class="redirect-subtitle" id="redirect-details">Preparing to redirect you to Amazon...</p>
+      
+      <div class="redirect-steps">
+        <div class="redirect-step" id="step-1">
+          <div class="step-icon">
+            <svg style="display:none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span>Verifying secure connection...</span>
+        </div>
+        <div class="redirect-step" id="step-2">
+          <div class="step-icon">
+            <svg style="display:none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span>Fetching real-time stock...</span>
+        </div>
+        <div class="redirect-step" id="step-3">
+          <div class="step-icon">
+            <svg style="display:none;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span>Applying discount codes...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE ALERT MODAL -->
+  <div id="price-alert-modal" class="modal-overlay">
+    <div class="modal-content glass">
+      <button class="modal-close-btn" id="price-alert-close" aria-label="Close Alert Setup">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <h3 class="redirect-title">Set Price Drop Alert</h3>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;" id="price-alert-product-title">
+        Get an email as soon as this product drops in price.
+      </p>
+      
+      <form id="price-alert-form" class="alert-form">
+        <div class="form-group">
+          <label for="alert-email">Email Address</label>
+          <input type="email" id="alert-email" class="form-input" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="alert-target-price">Target Price (₹)</label>
+          <input type="number" id="alert-target-price" class="form-input" required>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top: 10px;">Enable Alert</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="margin-top: auto; padding: 48px 0; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 14px;">
+    <div class="container">
+      <p>&copy; 2026 SmartCompare Hub. Developed as a premium product search and price comparison tool.</p>
+    </div>
+  </footer>
+
+  <!-- DATABASE AND APPLICATION SCRIPTS -->
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
